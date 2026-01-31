@@ -8,11 +8,14 @@ enum Role {
 
 enum State{
 	Moving,
-	Dashing
+	Dashing,
+	Stunned
 }
 
 @export var deviceID = -1
 @onready var healthUI: HealthUI = get_node("../CombinedUI/HealthContainer%d" % deviceID)
+var swapTimer
+var stunTimer
 @onready var anim = get_node("AnimationPlayer")
 @export var currentRole = Role.Prey
 
@@ -25,6 +28,7 @@ var slowdown = 1
 const ACCEL = 2.0
 const DASH_SPEED = 500.0
 const DASH_START_TIME = 0.5
+const STUN_TIME_MAX = 3
 
 var curHealth = 3
 var speed = 100.0
@@ -34,13 +38,19 @@ var dashEnabled = true
 
 var currentState = State.Moving
 
+func _ready():
+	swapTimer = get_node("../CombinedUI/Timer")
+	swapTimer.timerEnd.connect(swapRole)
+
 func _process(delta):
-	print(dashTimer)
 	match(currentState):
 		State.Moving:
 			movePlayer(delta)
 		State.Dashing:
 			dashPlayer(delta)
+		State.Stunned:
+			velocity = Vector2.ZERO
+
 	move_and_slide()
 	ChangeAnimation()
 
@@ -84,8 +94,21 @@ func change_health(change):
 		curHealth = curHealth + change
 		healthUI.show_health(curHealth)
 		
-func swap():
-	print("Swap!")
+func swapRole():
+	stunPlayer()
+	match(currentRole):
+		Role.Hunter:
+			currentRole = Role.Prey
+		Role.Prey:
+			currentRole = Role.Hunter
+
+func stunPlayer():
+	currentState = State.Stunned
+	stunTimer = get_tree().create_timer(STUN_TIME_MAX)
+	stunTimer.timeout.connect(releaseStun)
+
+func releaseStun():
+	currentState = State.Moving
 	
 func ChangeAnimation():
 	
