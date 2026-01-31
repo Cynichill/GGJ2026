@@ -16,24 +16,25 @@ enum State{
 @onready var healthUI: HealthUI = get_node("../CombinedUI/HealthContainer%d" % deviceID)
 var swapTimer
 var stunTimer
+var dashTimer
 @onready var anim = get_node("AnimationPlayer")
 @export var currentRole = Role.Prey
 
 const MAX_HEALTH = 3
 const BASE_SPEED = 100.0
+const DASH_TIMER_MAX = 0.1
+
 #Animation Variables
 var curAnimation = ""
 
 var slowdown = 1
 const ACCEL = 2.0
 const DASH_SPEED = 500.0
-const DASH_START_TIME = 0.5
 const STUN_TIME_MAX = 3
 
 var curHealth = 3
 var speed = 100.0
 var moveDirection: Vector2
-var dashTimer = DASH_START_TIME
 var dashEnabled = true
 
 var currentState = State.Moving
@@ -47,7 +48,7 @@ func _process(delta):
 		State.Moving:
 			movePlayer(delta)
 		State.Dashing:
-			dashPlayer(delta)
+			velocity = DASH_SPEED * moveDirection
 		State.Stunned:
 			velocity = Vector2.ZERO
 
@@ -59,13 +60,6 @@ func movePlayer(delta):
 	moveDirection.y = Input.get_action_strength("Down_%s" % [deviceID]) - Input.get_action_strength("Up_%s" % [deviceID])
 	moveDirection.normalized()
 	velocity = lerp(velocity, moveDirection * (speed * slowdown) , delta * ACCEL)
-	
-
-func dashPlayer(delta):
-	dashTimer -= delta
-	if(dashTimer < 0):
-		currentState = State.Moving
-		velocity = DASH_SPEED * moveDirection
 
 func _input(event: InputEvent):
 	if event.is_action_pressed("Interact_%s" % [deviceID]):
@@ -82,9 +76,16 @@ func interact():
 	interactions[currentRole].call()
 	
 func dash():
-	dashTimer = DASH_START_TIME
 	currentState = State.Dashing
-	dashEnabled = false
+	dashTimer = get_tree().create_timer(DASH_TIMER_MAX)
+	dashTimer.timeout.connect(releaseDash)
+	
+func releaseDash():
+	currentState = State.Moving
+	speed = BASE_SPEED
+	slowdown = -10
+	var slowdownTimer = get_tree().create_timer(0.1)
+	slowdownTimer.timeout.connect(func(): slowdown = 1)
 	
 func trap():
 	print("trap")
