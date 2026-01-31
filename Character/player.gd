@@ -88,11 +88,11 @@ func change_health(change):
 		healthUI.show_health(curHealth)
 		
 func swapRole():
+	stunPlayer()
 	match(currentRole):
 		Role.Hunter:
 			currentRole = Role.Prey
 		Role.Prey:
-			stunPlayer()
 			currentRole = Role.Hunter
 
 func stunPlayer():
