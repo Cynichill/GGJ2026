@@ -13,6 +13,7 @@ enum State{
 
 @export var deviceID = -1
 @onready var healthUI: HealthUI = get_node("../CombinedUI/HealthContainer%d" % deviceID)
+@onready var anim = get_node("AnimationPlayer")
 @export var currentRole = Role.Prey
 
 const MAX_HEALTH = 3
@@ -41,12 +42,13 @@ func _process(delta):
 		State.Dashing:
 			dashPlayer(delta)
 	move_and_slide()
+	ChangeAnimation()
 
 func movePlayer(delta):
 	moveDirection.x = Input.get_action_strength("Right_%s" % [deviceID]) - Input.get_action_strength("Left_%s" % [deviceID])
 	moveDirection.y = Input.get_action_strength("Down_%s" % [deviceID]) - Input.get_action_strength("Up_%s" % [deviceID])
 	moveDirection.normalized()
-	velocity = lerp(velocity, moveDirection * speed , delta * ACCEL)
+	velocity = lerp(velocity, moveDirection * (speed * slowdown) , delta * ACCEL)
 	
 
 func dashPlayer(delta):
