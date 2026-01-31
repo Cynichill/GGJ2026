@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 enum Role {
 	Hunter,
@@ -16,6 +17,10 @@ enum State{
 
 const MAX_HEALTH = 3
 const BASE_SPEED = 100.0
+#Animation Variables
+var curAnimation = ""
+
+var slowdown = 1
 const ACCEL = 2.0
 const DASH_SPEED = 500.0
 const DASH_START_TIME = 0.5
@@ -35,7 +40,6 @@ func _process(delta):
 			movePlayer(delta)
 		State.Dashing:
 			dashPlayer(delta)
-
 	move_and_slide()
 
 func movePlayer(delta):
@@ -80,3 +84,25 @@ func change_health(change):
 		
 func swap():
 	print("Swap!")
+	
+func ChangeAnimation():
+	
+	var nextAnimation = "Idle"
+	
+	if velocity.y > 0:
+		nextAnimation = "WalkDown"
+	elif velocity.y < 0:
+		nextAnimation = "WalkUp"
+	
+	if velocity.x > 0 && abs(velocity.x) > abs(velocity.y):
+		nextAnimation = "WalkRight"
+	elif velocity.x < 0 && abs(velocity.x) > abs(velocity.y):
+		nextAnimation = "WalkLeft"
+
+	if curAnimation != nextAnimation:
+		anim.play(nextAnimation)
+		curAnimation = nextAnimation
+		
+func _on_cure_timer_timeout():
+	if slowdown != 1:
+		slowdown = 1
