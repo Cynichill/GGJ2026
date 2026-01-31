@@ -113,6 +113,7 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" unique_id=848066897]
+z_index = 1
 scale = Vector2(2, 2)
 script = ExtResource("1_t86h6")
 
