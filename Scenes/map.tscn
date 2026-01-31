@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://yvdg4borbbyg" path="res://Art/PIPES_1.png" id="6_q6lx1"]
 [ext_resource type="Texture2D" uid="uid://birfvxija1y3p" path="res://Art/ROOF.png" id="7_5qtum"]
 [ext_resource type="Texture2D" uid="uid://b0cg1q0ujrcld" path="res://Art/WALL.png" id="8_ie368"]
+[ext_resource type="PackedScene" uid="uid://mvqsqqbjtda3" path="res://Scenes/trap.tscn" id="11_dlo4w"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_np2xp"]
 texture = ExtResource("1_p3ir5")
@@ -626,3 +627,6 @@ anchor_bottom = 0.0
 offset_right = 640.0
 offset_bottom = 360.0
 grow_vertical = 1
+
+[node name="Trap" parent="." unique_id=1628342389 instance=ExtResource("11_dlo4w")]
+position = Vector2(324, 252)
