@@ -2,16 +2,13 @@ extends Label
 
 # Timer child
 @onready var timer: Timer = $Timer
-var totalTime = 15
+const TOTAL_TIME = 15.0
 
 func _ready():
-	self.text = '%02d' % [totalTime]
-	timer.wait_time = 1.0
+	self.text = str(TOTAL_TIME)
+	timer.wait_time = TOTAL_TIME
 	timer.start()
 
-func _on_timer_timeout() -> void:
-	self.text = '%02d' % [totalTime]
-	totalTime -= 1
-	if totalTime <= 0:
-		totalTime = 15
-	
+func _process(delta):
+	var timeLeft = ceil(timer.get_time_left())
+	self.text = str(int(timeLeft))

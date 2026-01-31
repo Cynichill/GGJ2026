@@ -12,6 +12,7 @@ enum State{
 
 @export var deviceID = -1
 @onready var healthUI: HealthUI = get_node("../CombinedUI/HealthContainer%d" % deviceID)
+var swapTimer: Timer
 @export var currentRole = Role.Prey
 
 const MAX_HEALTH = 3
@@ -28,8 +29,11 @@ var dashEnabled = true
 
 var currentState = State.Moving
 
+func _ready():
+	swapTimer = get_node("../CombinedUI/Timer/Timer")
+	swapTimer.timeout.connect(swapRole)
+
 func _process(delta):
-	print(dashTimer)
 	match(currentState):
 		State.Moving:
 			movePlayer(delta)
@@ -78,5 +82,5 @@ func change_health(change):
 		curHealth = curHealth + change
 		healthUI.show_health(curHealth)
 		
-func swap():
+func swapRole():
 	print("Swap!")
