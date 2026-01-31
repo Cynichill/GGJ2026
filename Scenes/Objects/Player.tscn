@@ -125,3 +125,8 @@ libraries/ = SubResource("AnimationLibrary_s8rx5")
 texture = ExtResource("2_t86h6")
 hframes = 4
 vframes = 2
+
+[node name="CureTimer" type="Timer" parent="." unique_id=720346690]
+wait_time = 3.0
+
+[connection signal="timeout" from="CureTimer" to="." method="_on_cure_timer_timeout"]

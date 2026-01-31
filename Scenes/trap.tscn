@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://mvqsqqbjtda3"]
+
+[ext_resource type="Script" uid="uid://nvuxrbvhvxq2" path="res://trap.gd" id="1_xmcxk"]
+[ext_resource type="Texture2D" uid="uid://1xawwchefytd" path="res://Art/TRAP - Layer 2 (2) - 1.png" id="2_8uao8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_utgws"]
+size = Vector2(20, 20.5)
+
+[node name="Trap" type="Node2D" unique_id=1628342389]
+script = ExtResource("1_xmcxk")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1319198439]
+texture = ExtResource("2_8uao8")
+offset = Vector2(0, -0.5)
+hframes = 2
+vframes = 2
+
+[node name="Area2D" type="Area2D" parent="." unique_id=902216535]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=854347574]
+shape = SubResource("RectangleShape2D_utgws")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
