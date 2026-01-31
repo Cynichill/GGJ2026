@@ -7,6 +7,7 @@
 size = Vector2(20, 20.5)
 
 [node name="Trap" type="Node2D" unique_id=1628342389]
+scale = Vector2(2, 2)
 script = ExtResource("1_xmcxk")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1319198439]

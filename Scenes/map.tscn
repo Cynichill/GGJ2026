@@ -725,12 +725,10 @@ sources/10 = SubResource("TileSetAtlasSource_vtkp8")
 [node name="Map" type="Node2D" unique_id=2060347160]
 
 [node name="Player1" parent="." unique_id=848066897 instance=ExtResource("4_myvm1")]
-z_index = 1
 position = Vector2(118, 133)
 deviceID = 1
 
 [node name="Player2" parent="." unique_id=1488734891 instance=ExtResource("4_myvm1")]
-z_index = 1
 position = Vector2(285, 168)
 deviceID = 2
 currentRole = 0
