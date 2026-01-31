@@ -1,6 +1,11 @@
 extends CharacterBody2D
 
 @export var deviceID = -1
+@onready var healthUI: HealthUI = get_node("../CombinedUI/HealthContainer%d" % deviceID)
+
+
+var maxHealth = 3
+var curHealth = 3
 const SPEED = 100.0
 const ACCEL = 2.0
 
@@ -43,3 +48,11 @@ func dash():
 	
 func trap():
 	print("trap")
+	
+func change_health(change):
+	if curHealth + change <= maxHealth:
+		curHealth = curHealth + change
+		healthUI.show_health(curHealth)
+		
+func swap():
+	print("Swap!")

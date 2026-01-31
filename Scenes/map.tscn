@@ -3,7 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://b1gdy8a2nxe61" path="res://TempAssets/fantasy_ [version 2.0]/forest_/forest_.png" id="1_p3ir5"]
 [ext_resource type="Texture2D" uid="uid://dppy0gnfb2qkk" path="res://TempAssets/fantasy_ [version 2.0]/cave_/cave_.png" id="2_myvm1"]
 [ext_resource type="Texture2D" uid="uid://cr7b3ayxku5kd" path="res://TempAssets/fantasy_ [version 2.0]/cave_/cave_ [fencesAndWalls].png" id="3_q0mm3"]
-[ext_resource type="PackedScene" uid="uid://dm6qoe57l87ub" path="res://Scenes/Player.tscn" id="4_myvm1"]
+[ext_resource type="PackedScene" uid="uid://dm6qoe57l87ub" path="res://Scenes/Objects/Player.tscn" id="4_myvm1"]
+[ext_resource type="PackedScene" uid="uid://dng1joh5b6sis" path="res://Scenes/UI/CombinedUI.tscn" id="5_q0mm3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_np2xp"]
 texture = ExtResource("1_p3ir5")
@@ -471,3 +472,12 @@ deviceID = 1
 position = Vector2(505, 128)
 deviceID = 2
 currentRole = 0
+
+[node name="CombinedUI" parent="." unique_id=1664271991 instance=ExtResource("5_q0mm3")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_right = 640.0
+offset_bottom = 360.0
+grow_vertical = 1

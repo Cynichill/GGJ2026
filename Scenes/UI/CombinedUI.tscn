@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://dng1joh5b6sis"]
+
+[ext_resource type="PackedScene" uid="uid://cluiyj2mfw3kc" path="res://Scenes/UI/HealthContainer.tscn" id="1_6kh68"]
+[ext_resource type="Script" uid="uid://dccjdjrobp1gb" path="res://Scenes/UI/Timer.gd" id="2_2ti1q"]
+
+[node name="CombinedUI" type="Control" unique_id=1664271991]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthContainer1" parent="." unique_id=1380148179 instance=ExtResource("1_6kh68")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="HealthContainer2" parent="." unique_id=334171215 instance=ExtResource("1_6kh68")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_bottom = 0.0
+offset_left = -52.0
+offset_bottom = 14.0
+grow_horizontal = 0
+grow_vertical = 1
+
+[node name="Timer" type="Label" parent="." unique_id=2011547109]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "15"
+horizontal_alignment = 1
+script = ExtResource("2_2ti1q")
+
+[node name="Timer" type="Timer" parent="Timer" unique_id=1363844834]
+wait_time = 15.0
+
+[connection signal="timeout" from="Timer/Timer" to="Timer" method="_on_timer_timeout"]
