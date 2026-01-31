@@ -10,15 +10,9 @@ enum Role {
 	Hunter,
 	Prey
 }
-
-## We have a single interaction key
-## The resulting interaction is dependant on role
-var interactions := {
-	Role.Hunter: func(): trap(),	## Place trap on map
-	Role.Prey: func(): dash()		## Evasive Trap
-}
-
 @export var currentRole = Role.Prey
+
+signal interaction(role)
 
 func get_input():
 	input.x = Input.get_action_strength("Right_%s" % [deviceID]) - Input.get_action_strength("Left_%s" % [deviceID])
@@ -33,6 +27,13 @@ func _process(delta):
 func _input(event: InputEvent):
 	if event.is_action_pressed("Interact_%s" % [deviceID]):
 		interact()
+
+## We have a single interaction key
+## The resulting interaction is dependant on role
+var interactions := {
+	Role.Hunter: func(): trap(),	## Place trap on map
+	Role.Prey: func(): dash()		## Evasive Trap
+}
 	
 func interact():
 	interactions[currentRole].call()
