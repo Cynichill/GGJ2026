@@ -2,7 +2,10 @@ extends CharacterBody2D
 
 @export var deviceID = -1
 @onready var healthUI: HealthUI = get_node("../CombinedUI/HealthContainer%d" % deviceID)
+@onready var anim = get_node("AnimationPlayer")
 
+#Animation Variables
+var curAnimation = ""
 
 var maxHealth = 3
 var curHealth = 3
@@ -20,6 +23,7 @@ func _process(delta):
 	var playerInput = get_input()
 	velocity = lerp(velocity, playerInput * SPEED , delta * ACCEL)
 	move_and_slide()
+	ChangeAnimation()
 	
 func change_health(change):
 	if curHealth + change <= maxHealth:
@@ -28,3 +32,21 @@ func change_health(change):
 		
 func swap():
 	print("Swap!")
+	
+func ChangeAnimation():
+	
+	var nextAnimation = "Idle"
+	
+	if velocity.y > 0:
+		nextAnimation = "WalkDown"
+	elif velocity.y < 0:
+		nextAnimation = "WalkUp"
+	
+	if velocity.x > 0 && abs(velocity.x) > abs(velocity.y):
+		nextAnimation = "WalkRight"
+	elif velocity.x < 0 && abs(velocity.x) > abs(velocity.y):
+		nextAnimation = "WalkLeft"
+
+	if curAnimation != nextAnimation:
+		anim.play(nextAnimation)
+		curAnimation = nextAnimation
