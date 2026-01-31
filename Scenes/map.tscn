@@ -470,3 +470,4 @@ deviceID = 1
 [node name="Player2" parent="." unique_id=1488734891 instance=ExtResource("4_myvm1")]
 position = Vector2(505, 128)
 deviceID = 2
+currentRole = 0
