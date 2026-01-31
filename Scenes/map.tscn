@@ -471,6 +471,7 @@ deviceID = 1
 [node name="Player2" parent="." unique_id=1488734891 instance=ExtResource("4_myvm1")]
 position = Vector2(505, 128)
 deviceID = 2
+currentRole = 0
 
 [node name="CombinedUI" parent="." unique_id=1664271991 instance=ExtResource("5_q0mm3")]
 anchors_preset = 5
