@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cluiyj2mfw3kc" path="res://Scenes/UI/HealthContainer.tscn" id="1_6kh68"]
 [ext_resource type="Script" uid="uid://dccjdjrobp1gb" path="res://Scenes/UI/Timer.gd" id="2_2ti1q"]
 
-[node name="CombinedUi" type="Control" unique_id=1664271991]
+[node name="CombinedUI" type="Control" unique_id=1664271991]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,9 +11,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HealthContainer" parent="." unique_id=1380148179 instance=ExtResource("1_6kh68")]
+[node name="HealthContainer1" parent="." unique_id=1380148179 instance=ExtResource("1_6kh68")]
 layout_mode = 0
 anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="HealthContainer2" parent="." unique_id=334171215 instance=ExtResource("1_6kh68")]
 layout_mode = 1

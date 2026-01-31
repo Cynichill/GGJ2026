@@ -1,7 +1,9 @@
 extends CharacterBody2D
 
 @export var deviceID = -1
-@export var healthUI: HealthUI
+@onready var healthUI: HealthUI = get_node("../CombinedUI/HealthContainer%d" % deviceID)
+
+
 var maxHealth = 3
 var curHealth = 3
 const SPEED = 100.0
