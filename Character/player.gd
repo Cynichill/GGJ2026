@@ -91,6 +91,7 @@ func releaseDash():
 	
 func trap():
 	print("trap")
+	EventBus.createTrap.emit(deviceID, self.position)
 
 func change_health(change):
 	if curHealth + change <= MAX_HEALTH:
