@@ -73,7 +73,8 @@ var interactions := {
 }
 	
 func interact():
-	interactions[currentRole].call()
+	if(currentState != State.Stunned):
+		interactions[currentRole].call()
 	
 func dash():
 	currentState = State.Dashing
