@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://bk0yujgr3nlxs"]
+
+[ext_resource type="Script" uid="uid://c6o3omjpx2xmt" path="res://Scenes/Screen.gd" id="1_kln2b"]
+[ext_resource type="PackedScene" uid="uid://cwa7qgsbm0fdk" path="res://Scenes/map.tscn" id="1_r150o"]
+
+[node name="Main" type="Node2D" unique_id=844536162]
+script = ExtResource("1_kln2b")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=595898361]
+clip_contents = true
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="LeftSubViewportContainer" type="SubViewportContainer" parent="HBoxContainer" unique_id=767103206]
+layout_mode = 2
+
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/LeftSubViewportContainer" unique_id=1077636905]
+handle_input_locally = false
+size = Vector2i(315, 360)
+render_target_update_mode = 4
+
+[node name="Map" parent="HBoxContainer/LeftSubViewportContainer/SubViewport" unique_id=2060347160 instance=ExtResource("1_r150o")]
+
+[node name="Camera2D" type="Camera2D" parent="HBoxContainer/LeftSubViewportContainer/SubViewport" unique_id=1683494019]
+
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer" unique_id=427053028]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(7.70092e-07, 0.42737445, 0.42823496, 1)
+
+[node name="RightSubViewportContainer" type="SubViewportContainer" parent="HBoxContainer" unique_id=1130976090]
+layout_mode = 2
+
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/RightSubViewportContainer" unique_id=2046374980]
+handle_input_locally = false
+size = Vector2i(315, 360)
+render_target_update_mode = 4
+
+[node name="Camera2D" type="Camera2D" parent="HBoxContainer/RightSubViewportContainer/SubViewport" unique_id=2087994679]
