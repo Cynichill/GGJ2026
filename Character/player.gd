@@ -77,9 +77,10 @@ func interact():
 		interactions[currentRole].call()
 	
 func dash():
-	currentState = State.Dashing
-	dashTimer = get_tree().create_timer(DASH_TIMER_MAX)
-	dashTimer.timeout.connect(releaseDash)
+	if(currentState != State.Stunned):
+		currentState = State.Dashing
+		dashTimer = get_tree().create_timer(DASH_TIMER_MAX)
+		dashTimer.timeout.connect(releaseDash)
 	
 func releaseDash():
 	currentState = State.Moving
@@ -113,7 +114,6 @@ func releaseStun():
 	currentState = State.Moving
 	
 func ChangeAnimation():
-	
 	var nextAnimation = "Idle"
 	
 	if velocity.y > 0:
