@@ -1,6 +1,9 @@
 extends CharacterBody2D
 
 @export var deviceID = -1
+@export var healthUI: HealthUI
+var maxHealth = 3
+var curHealth = 3
 const SPEED = 100.0
 const ACCEL = 2.0
 
@@ -15,3 +18,11 @@ func _process(delta):
 	var playerInput = get_input()
 	velocity = lerp(velocity, playerInput * SPEED , delta * ACCEL)
 	move_and_slide()
+	
+func change_health(change):
+	if curHealth + change <= maxHealth:
+		curHealth = curHealth + change
+		healthUI.show_health(curHealth)
+		
+func swap():
+	print("Swap!")

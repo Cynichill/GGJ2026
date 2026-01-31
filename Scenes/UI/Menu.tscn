@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://chs62vv4herba"]
+
+[ext_resource type="Script" uid="uid://ba16nh4x6xqhd" path="res://main_menu.gd" id="1_3kf3n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6pedr"]
+bg_color = Color(0.48379266, 0.5875411, 0.8783001, 1)
+
+[node name="Main Menu" type="Control" unique_id=570660662]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3kf3n")
+
+[node name="Start" type="Button" parent="." unique_id=1555363329]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.0
+offset_top = -26.0
+offset_right = 94.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_6pedr")
+text = "START"
+
+[node name="Quit" type="Button" parent="." unique_id=1658651991]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.0
+offset_top = 38.0
+offset_right = 94.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_6pedr")
+text = "Quit"
+
+[node name="Title" type="Label" parent="." unique_id=194057138]
+layout_mode = 0
+offset_left = 210.0
+offset_top = 35.0
+offset_right = 427.0
+offset_bottom = 87.0
+text = "Title!"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

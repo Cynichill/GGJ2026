@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://cluiyj2mfw3kc"]
+
+[ext_resource type="PackedScene" uid="uid://cl4jw42b74nm4" path="res://Scenes/UI/HealthGUI.tscn" id="1_fuxl2"]
+[ext_resource type="Script" uid="uid://btk14g2h4558s" path="res://Scenes/UI/HealthUI.gd" id="1_ikkn1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ikkn1"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="HealthContainer" type="HBoxContainer" unique_id=1380148179]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+script = ExtResource("1_ikkn1")
+
+[node name="HeartPanel1" parent="." unique_id=865433142 instance=ExtResource("1_fuxl2")]
+layout_mode = 2
+
+[node name="HeartPanel2" parent="." unique_id=813892229 instance=ExtResource("1_fuxl2")]
+layout_mode = 2
+
+[node name="HeartPanel3" parent="." unique_id=1004764326 instance=ExtResource("1_fuxl2")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ikkn1")

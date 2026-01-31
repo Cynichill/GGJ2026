@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cl4jw42b74nm4"]
+
+[ext_resource type="Texture2D" uid="uid://bpncd3q711qv6" path="res://UI/Heart.png" id="1_odeeb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qiohw"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="HeartPanel" type="Panel" unique_id=865433142]
+custom_minimum_size = Vector2(16, 14)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -624.0
+offset_bottom = -346.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qiohw")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=803909699]
+position = Vector2(0, -2)
+texture = ExtResource("1_odeeb")
+centered = false
