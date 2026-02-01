@@ -696,7 +696,6 @@ sources/10 = SubResource("TileSetAtlasSource_vtkp8")
 position = Vector2(300, 350)
 floor_snap_length = 32.0
 deviceID = 1
-currentRole = 1
 
 [node name="Player2" parent="." unique_id=1488734891 instance=ExtResource("4_myvm1")]
 position = Vector2(950, 350)
