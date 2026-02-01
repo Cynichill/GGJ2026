@@ -13,7 +13,10 @@
 [ext_resource type="Texture2D" uid="uid://b0cg1q0ujrcld" path="res://Art/WALL.png" id="8_ie368"]
 [ext_resource type="Texture2D" uid="uid://c4u2sl3g6nduv" path="res://Art/WALLCORNER.png" id="12_ie368"]
 [ext_resource type="Texture2D" uid="uid://baa2xggvjmd7i" path="res://Art/GRATING_l_ALT.png" id="13_x5dfk"]
-[ext_resource type="PackedScene" uid="uid://doj74ux2thb06" path="res://Scenes/game_manager.tscn" id="14_ie368"]
+[ext_resource type="PackedScene" path="res://Scenes/game_manager.tscn" id="14_ie368"]
+[ext_resource type="Texture2D" uid="uid://bv837ffbrhmbw" path="res://Art/END SLATE - Layer 1.png" id="15_fls3e"]
+[ext_resource type="Script" uid="uid://dnge18nk4j468" path="res://Scenes/left_end.gd" id="15_k63oc"]
+[ext_resource type="Texture2D" uid="uid://d18bbbc2som7c" path="res://Art/END SLATE - Layer 2.png" id="16_k63oc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_np2xp"]
 texture = ExtResource("1_p3ir5")
@@ -727,3 +730,21 @@ tile_set = SubResource("TileSet_4c2oa")
 [node name="GameManager" parent="." unique_id=1074919067 instance=ExtResource("14_ie368")]
 z_index = 3
 position = Vector2(300, 320)
+
+[node name="LeftEnd" type="Node2D" parent="." unique_id=1427957378]
+z_index = 5
+script = ExtResource("15_k63oc")
+endID = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="LeftEnd" unique_id=1469798593]
+position = Vector2(-650, 360)
+texture = ExtResource("15_fls3e")
+
+[node name="RightEnd" type="Node2D" parent="." unique_id=1422811446]
+z_index = 5
+script = ExtResource("15_k63oc")
+endID = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="RightEnd" unique_id=1574507423]
+position = Vector2(1925, 360)
+texture = ExtResource("16_k63oc")
