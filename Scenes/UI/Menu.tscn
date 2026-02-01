@@ -755,7 +755,7 @@ vframes = 2
 frame = 1
 
 [node name="Title" type="Sprite2D" parent="." unique_id=922558351]
-position = Vector2(635.5, 176)
+position = Vector2(625.5, 176)
 scale = Vector2(0.99921876, 1)
 texture = SubResource("CompressedTexture2D_tij55")
 
