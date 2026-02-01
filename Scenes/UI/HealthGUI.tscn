@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://cl4jw42b74nm4"]
 
-[ext_resource type="Texture2D" uid="uid://bpncd3q711qv6" path="res://UI/Heart.png" id="1_odeeb"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qiohw"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bx85k"]
+load_path = "res://.godot/imported/HEALTH.png-4d2f7cfc4321caebe9128c55df8e3ebb.ctex"
 
 [node name="HeartPanel" type="Panel" unique_id=865433142]
 custom_minimum_size = Vector2(16, 14)
@@ -18,5 +19,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_qiohw")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=803909699]
 position = Vector2(0, -2)
-texture = ExtResource("1_odeeb")
+scale = Vector2(3, 3)
+texture = SubResource("CompressedTexture2D_bx85k")
 centered = false
+hframes = 2

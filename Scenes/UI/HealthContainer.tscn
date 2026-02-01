@@ -16,11 +16,14 @@ theme_override_constants/separation = 2
 script = ExtResource("1_ikkn1")
 
 [node name="HeartPanel1" parent="." unique_id=865433142 instance=ExtResource("1_fuxl2")]
+custom_minimum_size = Vector2(50, 14)
 layout_mode = 2
 
 [node name="HeartPanel2" parent="." unique_id=813892229 instance=ExtResource("1_fuxl2")]
+custom_minimum_size = Vector2(50, 14)
 layout_mode = 2
 
 [node name="HeartPanel3" parent="." unique_id=1004764326 instance=ExtResource("1_fuxl2")]
+custom_minimum_size = Vector2(50, 14)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ikkn1")
