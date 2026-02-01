@@ -319,16 +319,16 @@ animations = [{
 [sub_resource type="SpriteFrames" id="SpriteFrames_8ydoy"]
 animations = [{
 "frames": [{
-"duration": 1.0,
+"duration": 0.4,
 "texture": ExtResource("8_oej56")
 }, {
-"duration": 1.0,
+"duration": 0.4,
 "texture": ExtResource("9_ff814")
 }, {
-"duration": 1.0,
+"duration": 0.4,
 "texture": ExtResource("10_n7c1o")
 }, {
-"duration": 1.0,
+"duration": 0.4,
 "texture": ExtResource("11_12acn")
 }],
 "loop": true,
@@ -401,6 +401,6 @@ frame_progress = 1.0
 visible = false
 sprite_frames = SubResource("SpriteFrames_8ydoy")
 animation = &"shock"
-frame_progress = 0.5230248
+frame_progress = 0.41805783
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
