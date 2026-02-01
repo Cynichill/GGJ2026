@@ -40,12 +40,14 @@ var moveDirection: Vector2
 var dashEnabled = true
 var trapAvailable = true
 var trapsLeft = 2
+var isInvuln = false
 
 var currentState = State.Moving
 
 func _ready():
 	swapTimer = get_node("../CombinedUI/Timer")
 	swapTimer.timerEnd.connect(swapRole)
+	EventBus.trapInteraction.connect(trapped)
 
 func _process(delta):
 	match(currentState):
@@ -85,6 +87,9 @@ func dash():
 		currentState = State.Dashing
 		dashTimer = get_tree().create_timer(DASH_TIMER_MAX)
 		dashTimer.timeout.connect(releaseDash)
+		var invulnTimer = get_tree().create_timer(0.1)
+		isInvuln = true
+		invulnTimer.timeout.connect(func(): isInvuln = false)
 	
 func releaseDash():
 	currentState = State.Moving
@@ -143,7 +148,15 @@ func ChangeAnimation():
 	if curAnimation != nextAnimation:
 		anim.play(nextAnimation)
 		curAnimation = nextAnimation
-		
-func _on_cure_timer_timeout():
+
+func trapped(player: Player, trap):
+	if player.deviceID == deviceID:
+		if !isInvuln:
+			slowdown = 0.5
+			var cureTimer = get_tree().create_timer(3)
+			cureTimer.timeout.connect(cureTimeout)
+			trap.queue_free()
+
+func cureTimeout():
 	if slowdown != 1:
 		slowdown = 1

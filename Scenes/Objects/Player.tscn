@@ -116,6 +116,8 @@ _data = {
 z_index = 1
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_t86h6")
+deviceID = null
+currentRole = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1892978216]
 shape = SubResource("RectangleShape2D_dewec")
@@ -127,8 +129,3 @@ libraries/ = SubResource("AnimationLibrary_s8rx5")
 texture = ExtResource("2_t86h6")
 hframes = 4
 vframes = 2
-
-[node name="CureTimer" type="Timer" parent="." unique_id=720346690]
-wait_time = 3.0
-
-[connection signal="timeout" from="CureTimer" to="." method="_on_cure_timer_timeout"]

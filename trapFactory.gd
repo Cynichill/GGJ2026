@@ -10,7 +10,6 @@ func newTrap(creator, position):
 	var thisTrap: Trap = trapScene.instantiate()
 	thisTrap.creator = creator
 	thisTrap.position = correctPlacement(position)
-	thisTrap.timeStamp = Time.get_unix_time_from_system()
 	add_child(thisTrap)
 	
 func correctPlacement(position):
