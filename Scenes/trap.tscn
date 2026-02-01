@@ -1,10 +1,46 @@
 [gd_scene format=3 uid="uid://mvqsqqbjtda3"]
 
 [ext_resource type="Script" uid="uid://nvuxrbvhvxq2" path="res://trap.gd" id="1_xmcxk"]
-[ext_resource type="Texture2D" uid="uid://1xawwchefytd" path="res://Art/TRAP - Layer 2 (2) - 1.png" id="2_8uao8"]
+[ext_resource type="Texture2D" uid="uid://cxve11q7nxdev" path="res://Art/TRAP - Layer 2 (2) - 1.png" id="2_8uao8"]
+[ext_resource type="Texture2D" uid="uid://bj7utgpba1636" path="res://Art/TRAP ACTIVE - 1.png" id="2_1520v"]
+[ext_resource type="Texture2D" uid="uid://cj8xqqsb0a104" path="res://Art/TRAP ACTIVE - 2.png" id="3_fabh7"]
+[ext_resource type="Texture2D" uid="uid://b0bmhmicg08vo" path="res://Art/TRAP ACTIVE - 3.png" id="4_q4u3d"]
+[ext_resource type="Texture2D" uid="uid://cbcrvklpnb3o" path="res://Art/TRAP ACTIVE - 4.png" id="5_xjjbg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xmcxk"]
 resource_local_to_scene = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1eiu"]
+atlas = ExtResource("2_8uao8")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rqc61"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_1520v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_fabh7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_q4u3d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_xjjbg")
+}],
+"loop": true,
+"name": &"Active",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d1eiu")
+}],
+"loop": true,
+"name": &"Inactive",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_utgws"]
 size = Vector2(20, 20.5)
@@ -13,12 +49,11 @@ size = Vector2(20, 20.5)
 scale = Vector2(2, 2)
 script = ExtResource("1_xmcxk")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1319198439]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=242384089]
 material = SubResource("ShaderMaterial_xmcxk")
-texture = ExtResource("2_8uao8")
+sprite_frames = SubResource("SpriteFrames_rqc61")
+animation = &"Active"
 offset = Vector2(0, -0.5)
-hframes = 2
-vframes = 2
 
 [node name="Area2D" type="Area2D" parent="." unique_id=902216535]
 visible = false

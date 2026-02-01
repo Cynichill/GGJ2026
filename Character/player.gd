@@ -64,7 +64,7 @@ var currentState = State.Moving
 
 func _ready():
 	mask.visible = true
-	sfx.play("Shock")
+	sfx.play("shock")
 	swapTimer = get_node("../CombinedUI/Timer")
 	swapTimer.timerEnd.connect(swapRole)
 	EventBus.trapInteraction.connect(trapped)
