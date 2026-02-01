@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cluiyj2mfw3kc" path="res://Scenes/UI/HealthContainer.tscn" id="1_6kh68"]
 [ext_resource type="Script" uid="uid://dccjdjrobp1gb" path="res://Scenes/UI/Timer.gd" id="2_2ti1q"]
 [ext_resource type="FontFile" uid="uid://ddfv8m7crwees" path="res://UI/Fonts/Pixelout Personal Use Only.ttf" id="2_mnpap"]
+[ext_resource type="Script" uid="uid://jqisvi7twfhc" path="res://trapFactory.gd" id="3_2ti1q"]
 
 [node name="CombinedUI" type="Control" unique_id=1664271991]
 layout_mode = 3
@@ -48,3 +49,6 @@ theme_override_font_sizes/font_size = 50
 text = "15"
 horizontal_alignment = 1
 script = ExtResource("2_2ti1q")
+
+[node name="Node" type="Node" parent="." unique_id=215868500]
+script = ExtResource("3_2ti1q")
