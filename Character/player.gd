@@ -48,6 +48,9 @@ var curMaxSpeed = 0
 var curTurnSpeed = 0
 var storedDirection = 0
 
+var trapAvailable = true
+var trapsLeft = 2
+var isInvuln = false
 var currentState = State.Moving
 
 func _ready():
@@ -180,8 +183,16 @@ func ChangeAnimation():
 	if curAnimation != nextAnimation:
 		anim.play(nextAnimation)
 		curAnimation = nextAnimation
-		
-func _on_cure_timer_timeout():
+
+func trapped(player: Player, trap):
+	if player.deviceID == deviceID:
+		if !isInvuln:
+			slowdown = 0.5
+			var cureTimer = get_tree().create_timer(3)
+			cureTimer.timeout.connect(cureTimeout)
+			trap.queue_free()
+
+func cureTimeout():
 	if slowdown != 1:
 		slowdown = 1
 
@@ -221,7 +232,6 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 func checkStunBeforeHit(body: Player):
 	return body.currentRole == State.Stunned || currentState == State.Stunned
 	
-
 func playerHit():
 	match(currentRole):
 		Role.Prey:
