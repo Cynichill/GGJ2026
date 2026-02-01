@@ -28,6 +28,11 @@ func setStunTimer():
 	timer.timeout.connect(setRoundTimer)
 	
 func switchRole():
-	timer.disconnect("timeout",releaseTimer)
+	if timer.is_connected("timeout", setRoundTimer):
+		timer.disconnect("timeout",setRoundTimer)
+		
+	if timer.is_connected("timeout", releaseTimer):
+		timer.disconnect("timeout",releaseTimer)
+	
 	timer = null
 	setStunTimer()
