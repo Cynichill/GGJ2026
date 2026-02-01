@@ -1,7 +1,7 @@
 extends Node
 @onready var trapScene = preload("res://Scenes/trap.tscn")
 
-const GRID_CORRECTION = 32
+const GRID_CORRECTION = 16
 
 func _ready():
 	EventBus.createTrap.connect(newTrap)
@@ -10,6 +10,7 @@ func newTrap(creator, position):
 	var thisTrap: Trap = trapScene.instantiate()
 	thisTrap.creator = creator
 	thisTrap.position = correctPlacement(position)
+	thisTrap.timeStamp = Time.get_unix_time_from_system()
 	add_child(thisTrap)
 	
 func correctPlacement(position):

@@ -23,6 +23,8 @@ var dashTimer
 const MAX_HEALTH = 3
 const BASE_SPEED = 100.0
 const DASH_TIMER_MAX = 0.1
+const TRAP_TIMER_MAX = 3.0
+const TRAP_COUNT_MAX = 2
 
 #Animation Variables
 var curAnimation = ""
@@ -36,6 +38,8 @@ var curHealth = 3
 var speed = 100.0
 var moveDirection: Vector2
 var dashEnabled = true
+var trapAvailable = true
+var trapsLeft = 2
 
 var currentState = State.Moving
 
@@ -90,8 +94,16 @@ func releaseDash():
 	slowdownTimer.timeout.connect(func(): slowdown = 1)
 	
 func trap():
-	print("trap")
-	EventBus.createTrap.emit(deviceID, self.position)
+	if(trapAvailable):
+		trapAvailable = false
+		var trapTimer = get_tree().create_timer(TRAP_TIMER_MAX)
+		trapTimer.timeout.connect(trapCooldownFinish)
+		EventBus.createTrap.emit(deviceID, self.position)
+
+func trapCooldownFinish():
+	if(trapsLeft > 0):
+		trapAvailable = true
+		trapsLeft -= 1
 
 func change_health(change):
 	if curHealth + change <= MAX_HEALTH:
@@ -104,6 +116,7 @@ func swapRole():
 		Role.Hunter:
 			currentRole = Role.Prey
 		Role.Prey:
+			trapsLeft = TRAP_COUNT_MAX
 			currentRole = Role.Hunter
 
 func stunPlayer():
