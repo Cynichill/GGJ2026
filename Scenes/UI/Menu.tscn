@@ -14,7 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://c4u2sl3g6nduv" path="res://Art/WALLCORNER.png" id="12_87s68"]
 [ext_resource type="Texture2D" uid="uid://baa2xggvjmd7i" path="res://Art/GRATING_l_ALT.png" id="13_11wkb"]
 [ext_resource type="Texture2D" uid="uid://1y12to6pr33c" path="res://Art/MEATBALL_HEAD_2.png" id="14_j8l1p"]
-[ext_resource type="Script" uid="uid://dgo6rkfam4wyy" path="res://Scenes/UI/Bob.gd" id="15_ahnea"]
+[ext_resource type="Script" path="res://Scenes/UI/Bob.gd" id="15_ahnea"]
+[ext_resource type="FontFile" uid="uid://ddfv8m7crwees" path="res://UI/Fonts/Pixelout Personal Use Only.ttf" id="16_vwd2g"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6jtbh"]
 
@@ -781,6 +782,25 @@ hframes = 4
 vframes = 2
 script = ExtResource("15_ahnea")
 playerID = 2
+
+[node name="Credits" type="Label" parent="." unique_id=502075229]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -305.0
+offset_top = -155.0
+offset_right = 305.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("16_vwd2g")
+theme_override_font_sizes/font_size = 30
+text = "A Game By:
+Logan C | Quinn D | Martin B | Eoghan H"
+horizontal_alignment = 1
 
 [connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
