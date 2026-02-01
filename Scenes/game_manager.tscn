@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://doj74ux2thb06"]
+
+[ext_resource type="Script" uid="uid://k3akvalv5n65" path="res://game_manager.gd" id="1_oj352"]
+[ext_resource type="FontFile" uid="uid://ddfv8m7crwees" path="res://UI/Fonts/Pixelout Personal Use Only.ttf" id="2_e5fcp"]
+
+[node name="GameManager" type="Node2D" unique_id=1074919067]
+scale = Vector2(5, 5)
+script = ExtResource("1_oj352")
+
+[node name="Label" type="Label" parent="." unique_id=601267586]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_e5fcp")
+text = "Player X Wins!"
+
+[node name="Timer" type="Timer" parent="." unique_id=1188855301]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

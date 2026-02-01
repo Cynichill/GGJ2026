@@ -10,14 +10,21 @@ enum State{
 	Moving,
 	Dashing,
 	Stunned,
+	Dead
 }
 
 @export var deviceID = -1
 @onready var healthUI: HealthUI = get_node("../CombinedUI/HealthContainer%d" % deviceID)
+@onready var gameManager: GM = get_node("../GameManager")
+@onready var hitbox: Area2D = get_node("Area2D")
+@onready var eyeball: AnimatedSprite2D = get_node("Eyeball")
+@onready var mask: AnimatedSprite2D = get_node(
+	"Sprite2D%s/Mask%s" % [deviceID, deviceID]
+)
 var swapTimer
 var stunTimer
 var dashTimer
-@onready var anim = get_node("Sprite2D")
+@onready var anim = get_node("Sprite2D1")
 @export var currentRole = Role.Prey
 
 const MAX_HEALTH = 3
@@ -28,6 +35,7 @@ const TRAP_COUNT_MAX = 2
 
 #Animation Variables
 var curAnimation = ""
+var isDead = false
 
 var slowdown = 1
 const ACCEL = 2.0
@@ -41,7 +49,7 @@ var dashEnabled = true
 
 #TEMP
 const AddSpeed = 10
-const MaxSpeed = 200
+const MaxSpeed = 300
 const turnSpeed = 15
 var curAddSpeed = 0
 var curMaxSpeed = 0
@@ -54,6 +62,8 @@ var isInvuln = false
 var currentState = State.Moving
 
 func _ready():
+	mask.visible = true
+	
 	swapTimer = get_node("../CombinedUI/Timer")
 	swapTimer.timerEnd.connect(swapRole)
 	EventBus.trapInteraction.connect(trapped)
@@ -65,7 +75,7 @@ func _ready():
 			otherSprite.visible = false
 		2:
 			anim = get_node("Sprite2D2")
-			var otherSprite = get_node("Sprite2D")
+			var otherSprite = get_node("Sprite2D1")
 			otherSprite.visible = false
 				
 func _process(_delta):
@@ -76,6 +86,8 @@ func _process(_delta):
 			velocity = DASH_SPEED * storedDirection
 		State.Stunned:
 			velocity = Vector2.ZERO
+		State.Dead:
+			velocity = Vector2.ZERO
 
 	move_and_slide()
 	ChangeAnimation()
@@ -85,7 +97,10 @@ func movePlayer():
 		Input.get_axis("Left_%s" % deviceID, "Right_%s" % deviceID),
 		Input.get_axis("Up_%s" % deviceID, "Down_%s" % deviceID)
 	)
-
+	
+	if currentRole == Role.Hunter:
+		if speed < MaxSpeed:
+			speed += 20
 	curAddSpeed = AddSpeed
 	curTurnSpeed = turnSpeed
 	var final_speed = speed * slowdown
@@ -162,14 +177,24 @@ func trapCooldownFinish():
 func change_health(change):
 	if curHealth + change <= MAX_HEALTH:
 		curHealth = curHealth + change
+		print(curHealth)
 		healthUI.show_health(curHealth)
+	if curHealth <= 0:
+		KillPlayer()
+
+func KillPlayer():
+	currentState = State.Dead
+	isDead = true
+	gameManager.DecideWinner(deviceID)
 		
 func swapRole():
 	match(currentRole):
 		Role.Hunter:
+			mask.play("Prey")
 			dashEnabled = true
 			currentRole = Role.Prey
 		Role.Prey:
+			mask.play("Hunter")
 			stunPlayer()
 			trapAvailable = true
 			trapsLeft = 2
@@ -185,9 +210,12 @@ func playerHit():
 			trapsLeft = 2
 			EventBus.switchTraps.emit(deviceID)
 			currentRole = Role.Hunter
+			mask.play("Hunter")
+			
 		Role.Hunter:
 			dashEnabled = true
 			currentRole = Role.Prey
+			mask.play("Prey")
 
 func stunPlayer():
 	currentState = State.Stunned
@@ -221,7 +249,17 @@ func ChangeAnimation():
 				nextAnimation = "Dash Right"
 			elif velocity.x < 0 && abs(velocity.x) > abs(velocity.y):
 				nextAnimation = "Dash Left"
-
+		State.Stunned:
+			nextAnimation = "Hurt"
+		State.Dead:
+			nextAnimation = "Dead"
+			eyeball.visible = true
+			eyeball.play("Death")
+	if isDead:
+		nextAnimation = "Dead"
+		eyeball.visible = true
+		eyeball.play("Death")
+			
 	if curAnimation != nextAnimation:
 		anim.play(nextAnimation)
 		curAnimation = nextAnimation
@@ -267,9 +305,10 @@ func apply_axis_movement(
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if !checkStunBeforeHit(body):
+		print(body.currentState)
 		if body is Player && body != self:
 			if currentRole == Role.Prey:
 				EventBus.playerHit.emit()
 
 func checkStunBeforeHit(body: Player):
-	return body.currentRole == State.Stunned || currentState == State.Stunned
+	return body.currentRole == State.Stunned || body.currentState == State.Stunned

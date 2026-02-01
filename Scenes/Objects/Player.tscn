@@ -4,6 +4,9 @@
 [ext_resource type="Shader" uid="uid://dm8vpx0r4wirq" path="res://Scenes/Objects/Player.tres" id="2_5f5w1"]
 [ext_resource type="Texture2D" uid="uid://do1veeraxoyh" path="res://Art/MEATBALL_HEAD_DASH-export.png" id="3_s8rx5"]
 [ext_resource type="Texture2D" uid="uid://14qv7sk64mbr" path="res://Art/MEATBALL_HEAD_3-Sheet.png" id="4_k46cm"]
+[ext_resource type="Texture2D" uid="uid://dy0q4ybicccnn" path="res://Art/MEATBALL_HEAD_HURT.png" id="4_s8rx5"]
+[ext_resource type="Texture2D" uid="uid://du7ke4kjd47n0" path="res://Art/death.png" id="6_k46cm"]
+[ext_resource type="Texture2D" uid="uid://vucdfudw8vg7" path="res://Art/Masks.png" id="7_vsrq0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dewec"]
 size = Vector2(28, 32)
@@ -26,6 +29,34 @@ region = Rect2(32, 32, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_d83tg"]
 atlas = ExtResource("3_s8rx5")
 region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jwocr"]
+atlas = ExtResource("6_k46cm")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_agvjo"]
+atlas = ExtResource("6_k46cm")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_akn7f"]
+atlas = ExtResource("6_k46cm")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1qihd"]
+atlas = ExtResource("6_k46cm")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k46cm"]
+atlas = ExtResource("4_s8rx5")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4y6pr"]
+atlas = ExtResource("4_s8rx5")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wuw63"]
+atlas = ExtResource("4_s8rx5")
+region = Rect2(0, 128, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oej56"]
 atlas = ExtResource("4_k46cm")
@@ -111,6 +142,37 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_jwocr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_agvjo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_akn7f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1qihd")
+}],
+"loop": false,
+"name": &"Dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k46cm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4y6pr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wuw63")
+}],
+"loop": true,
+"name": &"Hurt",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_oej56")
 }, {
 "duration": 1.0,
@@ -180,12 +242,75 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_fokko"]
+atlas = ExtResource("7_vsrq0")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1jow"]
+atlas = ExtResource("7_vsrq0")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kggb1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fokko")
+}],
+"loop": true,
+"name": &"Hunter",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1jow")
+}],
+"loop": true,
+"name": &"Prey",
+"speed": 5.0
+}]
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t86h6"]
 radius = 12.0
 
 [sub_resource type="Environment" id="Environment_s8rx5"]
 background_mode = 3
 glow_enabled = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rghic"]
+atlas = ExtResource("6_k46cm")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1rqrl"]
+atlas = ExtResource("6_k46cm")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fqhn3"]
+atlas = ExtResource("6_k46cm")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uosqe"]
+atlas = ExtResource("6_k46cm")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jwocr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rghic")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1rqrl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fqhn3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uosqe")
+}],
+"loop": false,
+"name": &"Death",
+"speed": 5.0
+}]
 
 [node name="Player" type="CharacterBody2D" unique_id=848066897]
 z_index = 1
@@ -196,7 +321,7 @@ script = ExtResource("1_t86h6")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1892978216]
 shape = SubResource("RectangleShape2D_dewec")
 
-[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1389018379]
+[node name="Sprite2D1" type="AnimatedSprite2D" parent="." unique_id=1389018379]
 modulate = Color(1.2904384, 1.2904384, 1.2904384, 1)
 material = SubResource("ShaderMaterial_r6m6p")
 instance_shader_parameters/ColorParameter = Color(2.7023995, 0, 0.38282, 1)
@@ -207,8 +332,13 @@ sprite_frames = SubResource("SpriteFrames_4y6pr")
 animation = &"Idle"
 offset = Vector2(0, -16)
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1322405332]
+[node name="Mask1" type="AnimatedSprite2D" parent="Sprite2D1" unique_id=742580176]
 visible = false
+position = Vector2(0, -40)
+sprite_frames = SubResource("SpriteFrames_kggb1")
+animation = &"Prey"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1322405332]
 collision_layer = 4
 collision_mask = 6
 
@@ -228,5 +358,19 @@ position = Vector2(0, 16)
 sprite_frames = SubResource("SpriteFrames_4y6pr")
 animation = &"Idle"
 offset = Vector2(0, -16)
+
+[node name="Mask2" type="AnimatedSprite2D" parent="Sprite2D2" unique_id=842586215]
+visible = false
+position = Vector2(0, -40)
+sprite_frames = SubResource("SpriteFrames_kggb1")
+animation = &"Hunter"
+
+[node name="Eyeball" type="AnimatedSprite2D" parent="." unique_id=466831674]
+visible = false
+position = Vector2(0, 10)
+sprite_frames = SubResource("SpriteFrames_jwocr")
+animation = &"Death"
+frame = 3
+frame_progress = 1.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
