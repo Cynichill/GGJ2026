@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://b8qield20ietp"]
+
+[ext_resource type="Script" uid="uid://dxsbwiv60a3qt" path="res://Audio/audio_controller.gd" id="1_mslhv"]
+[ext_resource type="AudioStream" uid="uid://50qq2ljt3trw" path="res://Audio/SFX/Music/Music.wav" id="2_62og8"]
+[ext_resource type="AudioStream" uid="uid://cdapdept3kgr7" path="res://Audio/SFX/Ambience/Room Ambience.wav" id="3_32dgq"]
+[ext_resource type="AudioStream" uid="uid://vn8s6dsmupss" path="res://Audio/SFX/UI/Click.wav" id="4_2mam3"]
+[ext_resource type="AudioStream" uid="uid://bt8d7mk73x031" path="res://Audio/SFX/Mask/Mask Activate.wav" id="5_2mam3"]
+[ext_resource type="AudioStream" uid="uid://kehkueo160ch" path="res://Audio/SFX/Damage/Door Collision.wav" id="5_srkke"]
+[ext_resource type="AudioStream" uid="uid://bdtovfvvvrk38" path="res://Audio/SFX/Trap/Placement.wav" id="6_32dgq"]
+[ext_resource type="AudioStream" uid="uid://bkbgeig7ve26i" path="res://Audio/SFX/Movement/Dash.wav" id="6_nrmxn"]
+[ext_resource type="AudioStream" uid="uid://b4ac0kixhvyl" path="res://Audio/SFX/Trap/Detonation.wav" id="7_2mam3"]
+[ext_resource type="AudioStream" uid="uid://b5p6xlrfctudy" path="res://Audio/SFX/Doors/Door Close.wav" id="7_d3vne"]
+
+[node name="AudioController" type="Node2D" unique_id=82850744]
+script = ExtResource("1_mslhv")
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=1275875194]
+stream = ExtResource("2_62og8")
+
+[node name="Ambience" type="AudioStreamPlayer" parent="." unique_id=1370533611]
+stream = ExtResource("3_32dgq")
+
+[node name="UI" type="AudioStreamPlayer" parent="." unique_id=1451497238]
+stream = ExtResource("4_2mam3")
+volume_db = 6.0
+
+[node name="Mask" type="AudioStreamPlayer" parent="." unique_id=670850558]
+stream = ExtResource("5_2mam3")
+
+[node name="Damage" type="AudioStreamPlayer" parent="." unique_id=2012895359]
+stream = ExtResource("5_srkke")
+
+[node name="TrapDrop" type="AudioStreamPlayer" parent="." unique_id=1704086777]
+stream = ExtResource("6_32dgq")
+
+[node name="TrapDet" type="AudioStreamPlayer" parent="." unique_id=51637075]
+stream = ExtResource("7_2mam3")
+
+[node name="Dash" type="AudioStreamPlayer" parent="." unique_id=1947804338]
+stream = ExtResource("6_nrmxn")
+
+[node name="Doors" type="AudioStreamPlayer" parent="." unique_id=420773721]
+stream = ExtResource("7_d3vne")
