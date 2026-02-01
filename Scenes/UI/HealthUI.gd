@@ -7,5 +7,8 @@ extends HBoxContainer
 
 func show_health(health: int) -> void:
 	for i in hearts.size():
-		hearts[i].visible = i < health
+		if i < health:
+			hearts[i].frame = 0  # full
+		else:
+			hearts[i].frame = 1  # empty
 			

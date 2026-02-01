@@ -21,21 +21,29 @@ var dashTimer
 @export var currentRole = Role.Prey
 
 const MAX_HEALTH = 3
-const BASE_SPEED = 100.0
-const DASH_TIMER_MAX = 0.1
+const BASE_SPEED = 250.0
+const DASH_TIMER_MAX = 0.25
 
 #Animation Variables
 var curAnimation = ""
 
 var slowdown = 1
 const ACCEL = 2.0
-const DASH_SPEED = 500.0
+const DASH_SPEED = 750.0
 const STUN_TIME_MAX = 3
 
 var curHealth = 3
-var speed = 100.0
+var speed = 250.0
 var moveDirection: Vector2
 var dashEnabled = true
+
+#TEMP
+const AddSpeed = 10
+const MaxSpeed = 200
+const turnSpeed = 15
+var curAddSpeed = 0
+var curMaxSpeed = 0
+var curTurnSpeed = 0
 
 var currentState = State.Moving
 
@@ -56,10 +64,35 @@ func _process(delta):
 	ChangeAnimation()
 
 func movePlayer(delta):
+	var input_dir := Vector2(
+		Input.get_axis("Left_%s" % deviceID, "Right_%s" % deviceID),
+		Input.get_axis("Up_%s" % deviceID, "Down_%s" % deviceID)
+	)
+
+	curAddSpeed = AddSpeed
+	curTurnSpeed = turnSpeed
+
+	# X axis
+	velocity.x = apply_axis_movement(
+		velocity.x,
+		input_dir.x,
+		curAddSpeed,
+		curTurnSpeed,
+		speed
+	)
+
+	# Y axis
+	velocity.y = apply_axis_movement(
+		velocity.y,
+		input_dir.y,
+		curAddSpeed,
+		curTurnSpeed,
+		speed
+	)
 	moveDirection.x = Input.get_action_strength("Right_%s" % [deviceID]) - Input.get_action_strength("Left_%s" % [deviceID])
 	moveDirection.y = Input.get_action_strength("Down_%s" % [deviceID]) - Input.get_action_strength("Up_%s" % [deviceID])
 	moveDirection.normalized()
-	velocity = lerp(velocity, moveDirection * (speed * slowdown) , delta * ACCEL)
+	#velocity = lerp(velocity, moveDirection * (speed * slowdown) , delta * ACCEL)
 
 func _input(event: InputEvent):
 	if event.is_action_pressed("Interact_%s" % [deviceID]):
@@ -134,3 +167,36 @@ func ChangeAnimation():
 func _on_cure_timer_timeout():
 	if slowdown != 1:
 		slowdown = 1
+
+func apply_axis_movement(
+	vel: float,
+	dir: float,
+	add: float,
+	turn: float,
+	max_speed: float,
+	friction := 0.8
+) -> float:
+
+	if dir < 0:
+		if vel < -max_speed:
+			return -max_speed
+		elif vel > 0:
+			return vel - turn
+		else:
+			return vel - add
+
+	elif dir > 0:
+		if vel > max_speed:
+			return max_speed
+		elif vel < 0:
+			return vel + turn
+		else:
+			return vel + add
+	else:
+		return vel * friction
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body is Player && body != self:
+		if currentRole == Role.Prey:
+			change_health(-1)
