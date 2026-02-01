@@ -181,7 +181,6 @@ func trapCooldownFinish():
 func change_health(change):
 	if curHealth + change <= MAX_HEALTH:
 		curHealth = curHealth + change
-		print(curHealth)
 		healthUI.show_health(curHealth)
 	if curHealth <= 0:
 		KillPlayer()
@@ -312,7 +311,6 @@ func apply_axis_movement(
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if !checkStunBeforeHit(body):
-		print(body.currentState)
 		if body is Player && body != self:
 			if currentRole == Role.Prey:
 				EventBus.playerHit.emit()
