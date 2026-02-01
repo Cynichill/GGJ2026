@@ -120,11 +120,15 @@ func interact():
 		interactions[currentRole].call()
 	
 func dash():
-	if(currentState != State.Stunned) && currentState != State.Dashing:
+	if(currentState != State.Stunned) && (dashEnabled):
+		dashEnabled = false
 		currentState = State.Dashing
 		storedDirection = moveDirection
 		dashTimer = get_tree().create_timer(DASH_TIMER_MAX)
 		dashTimer.timeout.connect(releaseDash)
+		var invulnTimer = get_tree().create_timer(0.1)
+		isInvuln = true
+		invulnTimer.timeout.connect(func(): isInvuln = false)
 	
 func releaseDash():
 	currentState = State.Moving
@@ -155,8 +159,11 @@ func swapRole():
 	stunPlayer()
 	match(currentRole):
 		Role.Hunter:
+			dashEnabled = true
 			currentRole = Role.Prey
 		Role.Prey:
+			trapAvailable = true
+			trapsLeft = 2
 			currentRole = Role.Hunter
 
 func stunPlayer():
