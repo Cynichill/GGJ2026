@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://baa2xggvjmd7i" path="res://Art/GRATING_l_ALT.png" id="13_x5dfk"]
 [ext_resource type="PackedScene" path="res://Scenes/game_manager.tscn" id="14_ie368"]
 [ext_resource type="Texture2D" uid="uid://bv837ffbrhmbw" path="res://Art/END SLATE - Layer 1.png" id="15_fls3e"]
-[ext_resource type="Script" uid="uid://dnge18nk4j468" path="res://Scenes/left_end.gd" id="15_k63oc"]
+[ext_resource type="Script" uid="uid://dnge18nk4j468" path="res://Scenes/endDoors.gd" id="15_k63oc"]
 [ext_resource type="Texture2D" uid="uid://d18bbbc2som7c" path="res://Art/END SLATE - Layer 2.png" id="16_k63oc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_np2xp"]

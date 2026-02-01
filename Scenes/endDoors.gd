@@ -5,6 +5,9 @@ var tween
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	EventBus.endGame.connect(closeDoors)
+
+func closeDoors():
 	match(endID):
 		1:
 			tween = create_tween().set_loops(INF).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
@@ -16,11 +19,4 @@ func _ready() -> void:
 	endTimer.timeout.connect(resetScene)
 
 func resetScene():
-	match(endID):
-		1:
-			tween = create_tween().set_loops(INF).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
-			tween.tween_property(self, "position:x", self.position.y - 900, 2)
-		2:
-			tween = create_tween().set_loops(INF).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
-			tween.tween_property(self, "position:x", self.position.y + 900, 2)
-			
+	get_tree().change_scene_to_file("res://Scenes/UI/Menu.tscn")
