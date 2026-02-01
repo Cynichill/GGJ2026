@@ -112,13 +112,9 @@ _data = {
 &"WalkUp": SubResource("Animation_vsrq0")
 }
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t86h6"]
-radius = 12.0
-
 [node name="Player" type="CharacterBody2D" unique_id=848066897]
 z_index = 1
 scale = Vector2(1.5, 1.5)
-collision_layer = 2
 script = ExtResource("1_t86h6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1892978216]
@@ -135,12 +131,4 @@ vframes = 2
 [node name="CureTimer" type="Timer" parent="." unique_id=720346690]
 wait_time = 3.0
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1322405332]
-collision_layer = 4
-collision_mask = 6
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=628748909]
-shape = SubResource("CapsuleShape2D_t86h6")
-
 [connection signal="timeout" from="CureTimer" to="." method="_on_cure_timer_timeout"]
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
