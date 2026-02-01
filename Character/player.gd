@@ -18,6 +18,7 @@ enum State{
 @onready var gameManager: GM = get_node("../GameManager")
 @onready var hitbox: Area2D = get_node("Area2D")
 @onready var eyeball: AnimatedSprite2D = get_node("Eyeball")
+@onready var sfx: AnimatedSprite2D = get_node("SFX")
 @onready var mask: AnimatedSprite2D = get_node(
 	"Sprite2D%s/Mask%s" % [deviceID, deviceID]
 )
@@ -63,7 +64,7 @@ var currentState = State.Moving
 
 func _ready():
 	mask.visible = true
-	
+	sfx.play("Shock")
 	swapTimer = get_node("../CombinedUI/Timer")
 	swapTimer.timerEnd.connect(swapRole)
 	EventBus.trapInteraction.connect(trapped)
@@ -266,6 +267,7 @@ func ChangeAnimation():
 
 func trapped(player: Player, trap):
 	if player.deviceID == deviceID:
+		sfx.visible = true
 		if !isInvuln:
 			slowdown = 0.5
 			var cureTimer = get_tree().create_timer(3)
@@ -273,6 +275,7 @@ func trapped(player: Player, trap):
 			trap.queue_free()
 
 func cureTimeout():
+	sfx.visible = false
 	if slowdown != 1:
 		slowdown = 1
 

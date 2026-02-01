@@ -7,6 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://dy0q4ybicccnn" path="res://Art/MEATBALL_HEAD_HURT.png" id="4_s8rx5"]
 [ext_resource type="Texture2D" uid="uid://du7ke4kjd47n0" path="res://Art/death.png" id="6_k46cm"]
 [ext_resource type="Texture2D" uid="uid://vucdfudw8vg7" path="res://Art/Masks.png" id="7_vsrq0"]
+[ext_resource type="Texture2D" uid="uid://dmmsy6qdke700" path="res://Art/TRAPZAP - Layer 2 - 1.png" id="8_oej56"]
+[ext_resource type="Texture2D" uid="uid://clcdhr4y38dyy" path="res://Art/TRAPZAP - Layer 2 - 2.png" id="9_ff814"]
+[ext_resource type="Texture2D" uid="uid://mikleropx6as" path="res://Art/TRAPZAP - Layer 2 - 3.png" id="10_n7c1o"]
+[ext_resource type="Texture2D" uid="uid://rnqnsr2yigrp" path="res://Art/TRAPZAP - Layer 2 - 4.png" id="11_12acn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dewec"]
 size = Vector2(28, 32)
@@ -312,6 +316,26 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_8ydoy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_oej56")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ff814")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_n7c1o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_12acn")
+}],
+"loop": true,
+"name": &"shock",
+"speed": 6.0
+}]
+
 [node name="Player" type="CharacterBody2D" unique_id=848066897]
 z_index = 1
 scale = Vector2(1.5, 1.5)
@@ -372,5 +396,11 @@ sprite_frames = SubResource("SpriteFrames_jwocr")
 animation = &"Death"
 frame = 3
 frame_progress = 1.0
+
+[node name="SFX" type="AnimatedSprite2D" parent="." unique_id=1680811490]
+visible = false
+sprite_frames = SubResource("SpriteFrames_8ydoy")
+animation = &"shock"
+frame_progress = 0.5230248
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
