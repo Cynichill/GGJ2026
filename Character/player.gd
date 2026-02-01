@@ -69,6 +69,7 @@ func _ready():
 	swapTimer.timerEnd.connect(swapRole)
 	EventBus.trapInteraction.connect(trapped)
 	EventBus.playerHit.connect(playerHit)
+	
 
 	match deviceID:
 		1:
@@ -154,7 +155,8 @@ func dash():
 		var invulnTimer = get_tree().create_timer(0.1)
 		isInvuln = true
 		invulnTimer.timeout.connect(func(): isInvuln = false)
-	
+		AudioController.play_Dash()
+
 func releaseDash():
 	currentState = State.Moving
 	speed = BASE_SPEED
@@ -170,6 +172,7 @@ func trap():
 		var trapTimer = get_tree().create_timer(TRAP_TIMER_MAX)
 		trapTimer.timeout.connect(trapCooldownFinish)
 		EventBus.createTrap.emit(deviceID, self.position)
+		AudioController.play_TrapDrop()
 
 func trapCooldownFinish():
 	if(trapsLeft > 0):
@@ -272,6 +275,7 @@ func trapped(player: Player, trap):
 			var cureTimer = get_tree().create_timer(3)
 			cureTimer.timeout.connect(cureTimeout)
 			trap.queue_free()
+			AudioController.play_TrapDet()
 
 func cureTimeout():
 	sfx.visible = false
@@ -310,6 +314,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		if body is Player && body != self:
 			if currentRole == Role.Prey:
 				EventBus.playerHit.emit()
+				AudioController.play_Mask()
 
 func checkStunBeforeHit(body: Player):
 	return body.currentRole == State.Stunned || body.currentState == State.Stunned
