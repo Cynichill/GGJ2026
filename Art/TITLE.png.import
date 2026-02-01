@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxve11q7nxdev"
-path="res://.godot/imported/TRAP - Layer 2 (2) - 1.png-dee84b170ccb705ca49ad7f80b0514ae.ctex"
+uid="uid://dl7xcttq28lot"
+path="res://.godot/imported/TITLE.png-0dfb02c50e20d5eb6e675090bda0fd49.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/TRAP - Layer 2 (2) - 1.png"
-dest_files=["res://.godot/imported/TRAP - Layer 2 (2) - 1.png-dee84b170ccb705ca49ad7f80b0514ae.ctex"]
+source_file="res://Art/TITLE.png"
+dest_files=["res://.godot/imported/TITLE.png-0dfb02c50e20d5eb6e675090bda0fd49.ctex"]
 
 [params]
 
