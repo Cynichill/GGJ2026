@@ -83,7 +83,8 @@ func interact():
 		interactions[currentRole].call()
 	
 func dash():
-	if(currentState != State.Stunned):
+	if(currentState != State.Stunned) && (dashEnabled):
+		dashEnabled = false
 		currentState = State.Dashing
 		dashTimer = get_tree().create_timer(DASH_TIMER_MAX)
 		dashTimer.timeout.connect(releaseDash)
@@ -119,6 +120,7 @@ func swapRole():
 	stunPlayer()
 	match(currentRole):
 		Role.Hunter:
+			dashEnabled = true
 			currentRole = Role.Prey
 		Role.Prey:
 			trapsLeft = TRAP_COUNT_MAX
