@@ -9,7 +9,7 @@ enum Role {
 enum State{
 	Moving,
 	Dashing,
-	Stunned
+	Stunned,
 }
 
 @export var deviceID = -1
@@ -55,6 +55,7 @@ func _ready():
 	swapTimer = get_node("../CombinedUI/Timer")
 	swapTimer.timerEnd.connect(swapRole)
 	EventBus.trapInteraction.connect(trapped)
+	EventBus.playerHit.connect(playerHit)
 
 func _process(delta):
 	match(currentState):
@@ -213,8 +214,21 @@ func apply_axis_movement(
 	else:
 		return vel * friction
 
-
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body is Player && body != self:
-		if currentRole == Role.Prey:
+	if !checkStunBeforeHit(body):
+		if body is Player && body != self:
+			if currentRole == Role.Prey:
+				EventBus.playerHit.emit()
+
+func checkStunBeforeHit(body: Player):
+	return body.currentRole == State.Stunned || currentState == State.Stunned
+	
+
+func playerHit():
+	match(currentRole):
+		Role.Prey:
 			change_health(-1)
+			stunPlayer()
+			currentRole = Role.Hunter
+		Role.Hunter:
+			currentRole = Role.Prey
