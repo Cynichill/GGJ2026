@@ -120,6 +120,8 @@ z_index = 1
 scale = Vector2(1.5, 1.5)
 collision_layer = 2
 script = ExtResource("1_t86h6")
+deviceID = null
+currentRole = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1892978216]
 shape = SubResource("RectangleShape2D_dewec")
