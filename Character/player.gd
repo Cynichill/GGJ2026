@@ -17,7 +17,7 @@ enum State{
 var swapTimer
 var stunTimer
 var dashTimer
-@onready var anim = get_node("AnimationPlayer")
+@onready var anim = get_node("Sprite2D")
 @export var currentRole = Role.Prey
 
 const MAX_HEALTH = 3
@@ -59,10 +59,19 @@ func _ready():
 	EventBus.trapInteraction.connect(trapped)
 	EventBus.playerHit.connect(playerHit)
 
-func _process(delta):
+	match deviceID:
+		1:
+			var otherSprite = get_node("Sprite2D2")
+			otherSprite.visible = false
+		2:
+			anim = get_node("Sprite2D2")
+			var otherSprite = get_node("Sprite2D")
+			otherSprite.visible = false
+				
+func _process(_delta):
 	match(currentState):
 		State.Moving:
-			movePlayer(delta)
+			movePlayer()
 		State.Dashing:
 			velocity = DASH_SPEED * storedDirection
 		State.Stunned:
@@ -71,7 +80,7 @@ func _process(delta):
 	move_and_slide()
 	ChangeAnimation()
 
-func movePlayer(delta):
+func movePlayer():
 	var input_dir := Vector2(
 		Input.get_axis("Left_%s" % deviceID, "Right_%s" % deviceID),
 		Input.get_axis("Up_%s" % deviceID, "Down_%s" % deviceID)
@@ -191,15 +200,27 @@ func releaseStun():
 func ChangeAnimation():
 	var nextAnimation = "Idle"
 	
-	if velocity.y > 0:
-		nextAnimation = "WalkDown"
-	elif velocity.y < 0:
-		nextAnimation = "WalkUp"
+	match(currentState):
+		State.Moving:
+			if velocity.y > 0:
+				nextAnimation = "Walk Down"
+			elif velocity.y < 0:
+				nextAnimation = "Walk Up"
 	
-	if velocity.x > 0 && abs(velocity.x) > abs(velocity.y):
-		nextAnimation = "WalkRight"
-	elif velocity.x < 0 && abs(velocity.x) > abs(velocity.y):
-		nextAnimation = "WalkLeft"
+			if velocity.x > 0 && abs(velocity.x) > abs(velocity.y):
+				nextAnimation = "Walk Right"
+			elif velocity.x < 0 && abs(velocity.x) > abs(velocity.y):
+				nextAnimation = "Walk Left"
+		State.Dashing:
+			if velocity.y > 0:
+				nextAnimation = "Dash Down"
+			elif velocity.y < 0:
+				nextAnimation = "Dash Up"
+	
+			if velocity.x > 0 && abs(velocity.x) > abs(velocity.y):
+				nextAnimation = "Dash Right"
+			elif velocity.x < 0 && abs(velocity.x) > abs(velocity.y):
+				nextAnimation = "Dash Left"
 
 	if curAnimation != nextAnimation:
 		anim.play(nextAnimation)

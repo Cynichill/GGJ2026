@@ -1,0 +1,49 @@
+[gd_resource type="VisualShader" format=3 uid="uid://dm8vpx0r4wirq"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_k38ou"]
+input_name = "color"
+
+[sub_resource type="VisualShaderNodeColorOp" id="VisualShaderNodeColorOp_dbfuk"]
+operator = 1
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_txljn"]
+parameter_name = "MaskColour"
+qualifier = 2
+
+[sub_resource type="VisualShaderNodeIf" id="VisualShaderNodeIf_5vkhp"]
+default_input_values = [0, 0.0, 1, 0.0, 2, 1e-05, 3, Vector3(1, 1, 1), 4, Vector3(0, 0, 0), 5, Vector3(0, 0, 0)]
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_r3ybp"]
+parameter_name = "FloatParameter"
+qualifier = 2
+hint = 1
+min = 0.001
+max = 0.005
+
+[sub_resource type="VisualShaderNodeSwitch" id="VisualShaderNodeSwitch_140he"]
+default_input_values = [0, false, 1, Vector3(1, 1, 1), 2, Vector3(0, 0, 0)]
+op_type = 4
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_2onut"]
+parameter_name = "ColorParameter"
+qualifier = 2
+
+[resource]
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(704, -64)
+nodes/fragment/2/node = SubResource("VisualShaderNodeInput_k38ou")
+nodes/fragment/2/position = Vector2(-375.50494, -259.45743)
+nodes/fragment/3/node = SubResource("VisualShaderNodeColorOp_dbfuk")
+nodes/fragment/3/position = Vector2(-48, -208)
+nodes/fragment/4/node = SubResource("VisualShaderNodeColorParameter_txljn")
+nodes/fragment/4/position = Vector2(-384, -160)
+nodes/fragment/5/node = SubResource("VisualShaderNodeIf_5vkhp")
+nodes/fragment/5/position = Vector2(112, 112)
+nodes/fragment/6/node = SubResource("VisualShaderNodeFloatParameter_r3ybp")
+nodes/fragment/6/position = Vector2(-208, 96)
+nodes/fragment/7/node = SubResource("VisualShaderNodeSwitch_140he")
+nodes/fragment/7/position = Vector2(480, -128)
+nodes/fragment/8/node = SubResource("VisualShaderNodeColorParameter_2onut")
+nodes/fragment/8/position = Vector2(192, -224)
+nodes/fragment/connections = PackedInt32Array(2, 0, 3, 0, 4, 0, 3, 1, 3, 0, 5, 0, 6, 0, 5, 2, 5, 0, 7, 0, 7, 0, 0, 0, 2, 0, 7, 2, 8, 0, 7, 1)
