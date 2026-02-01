@@ -9,7 +9,7 @@ enum Role {
 enum State{
 	Moving,
 	Dashing,
-	Stunned
+	Stunned,
 }
 
 @export var deviceID = -1
@@ -23,6 +23,8 @@ var dashTimer
 const MAX_HEALTH = 3
 const BASE_SPEED = 250.0
 const DASH_TIMER_MAX = 0.25
+const TRAP_TIMER_MAX = 3.0
+const TRAP_COUNT_MAX = 2
 
 #Animation Variables
 var curAnimation = ""
@@ -51,6 +53,8 @@ var currentState = State.Moving
 func _ready():
 	swapTimer = get_node("../CombinedUI/Timer")
 	swapTimer.timerEnd.connect(swapRole)
+	EventBus.trapInteraction.connect(trapped)
+	EventBus.playerHit.connect(playerHit)
 
 func _process(delta):
 	match(currentState):
@@ -128,8 +132,16 @@ func releaseDash():
 	slowdownTimer.timeout.connect(func(): slowdown = 1)
 	
 func trap():
-	print("trap")
-	EventBus.createTrap.emit(deviceID, self.position)
+	if(trapAvailable):
+		trapsLeft -= 1
+		trapAvailable = false
+		var trapTimer = get_tree().create_timer(TRAP_TIMER_MAX)
+		trapTimer.timeout.connect(trapCooldownFinish)
+		EventBus.createTrap.emit(deviceID, self.position)
+
+func trapCooldownFinish():
+	if(trapsLeft > 0):
+		trapAvailable = true
 
 func change_health(change):
 	if curHealth + change <= MAX_HEALTH:
@@ -200,8 +212,24 @@ func apply_axis_movement(
 	else:
 		return vel * friction
 
-
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body is Player && body != self:
-		if currentRole == Role.Prey:
+	if !checkStunBeforeHit(body):
+		if body is Player && body != self:
+			if currentRole == Role.Prey:
+				EventBus.playerHit.emit()
+
+func checkStunBeforeHit(body: Player):
+	return body.currentRole == State.Stunned || currentState == State.Stunned
+	
+
+func playerHit():
+	match(currentRole):
+		Role.Prey:
 			change_health(-1)
+			stunPlayer()
+			trapAvailable = true
+			trapsLeft = 2
+			currentRole = Role.Hunter
+		Role.Hunter:
+			dashEnabled = true
+			currentRole = Role.Prey
