@@ -44,6 +44,7 @@ const turnSpeed = 15
 var curAddSpeed = 0
 var curMaxSpeed = 0
 var curTurnSpeed = 0
+var storedDirection = 0
 
 var currentState = State.Moving
 
@@ -56,7 +57,7 @@ func _process(delta):
 		State.Moving:
 			movePlayer(delta)
 		State.Dashing:
-			velocity = DASH_SPEED * moveDirection
+			velocity = DASH_SPEED * storedDirection
 		State.Stunned:
 			velocity = Vector2.ZERO
 
@@ -71,6 +72,7 @@ func movePlayer(delta):
 
 	curAddSpeed = AddSpeed
 	curTurnSpeed = turnSpeed
+	var final_speed = speed * slowdown
 
 	# X axis
 	velocity.x = apply_axis_movement(
@@ -78,7 +80,7 @@ func movePlayer(delta):
 		input_dir.x,
 		curAddSpeed,
 		curTurnSpeed,
-		speed
+		final_speed
 	)
 
 	# Y axis
@@ -87,8 +89,9 @@ func movePlayer(delta):
 		input_dir.y,
 		curAddSpeed,
 		curTurnSpeed,
-		speed
+		final_speed
 	)
+
 	moveDirection.x = Input.get_action_strength("Right_%s" % [deviceID]) - Input.get_action_strength("Left_%s" % [deviceID])
 	moveDirection.y = Input.get_action_strength("Down_%s" % [deviceID]) - Input.get_action_strength("Up_%s" % [deviceID])
 	moveDirection.normalized()
@@ -110,15 +113,17 @@ func interact():
 		interactions[currentRole].call()
 	
 func dash():
-	if(currentState != State.Stunned):
+	if(currentState != State.Stunned) && currentState != State.Dashing:
 		currentState = State.Dashing
+		storedDirection = moveDirection
 		dashTimer = get_tree().create_timer(DASH_TIMER_MAX)
 		dashTimer.timeout.connect(releaseDash)
 	
 func releaseDash():
 	currentState = State.Moving
 	speed = BASE_SPEED
-	slowdown = -10
+	velocity = Vector2(0,0)
+	slowdown = 0.1
 	var slowdownTimer = get_tree().create_timer(0.1)
 	slowdownTimer.timeout.connect(func(): slowdown = 1)
 	
