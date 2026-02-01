@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bt8d7mk73x031"
+path="res://.godot/imported/Mask Activate.wav-3e1a801f6dfc560f57a2c81f4a1998d3.sample"
+
+[deps]
+
+source_file="res://Audio/SFX/Mask/Mask Activate.wav"
+dest_files=["res://.godot/imported/Mask Activate.wav-3e1a801f6dfc560f57a2c81f4a1998d3.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
