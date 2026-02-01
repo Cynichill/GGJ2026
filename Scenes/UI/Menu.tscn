@@ -1,9 +1,14 @@
 [gd_scene format=3 uid="uid://chs62vv4herba"]
 
 [ext_resource type="Script" uid="uid://ba16nh4x6xqhd" path="res://main_menu.gd" id="1_3kf3n"]
+[ext_resource type="Texture2D" uid="uid://csk00oms27klr" path="res://Art/BUTTONS.png" id="2_353f8"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6pedr"]
-bg_color = Color(0.48379266, 0.5875411, 0.8783001, 1)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6jtbh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5cock"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tij55"]
+load_path = "res://.godot/imported/TITLE.png-0dfb02c50e20d5eb6e675090bda0fd49.ctex"
 
 [node name="Main Menu" type="Control" unique_id=570660662]
 layout_mode = 3
@@ -28,8 +33,13 @@ offset_bottom = 26.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_6pedr")
-text = "START"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_6jtbh")
+
+[node name="Sprite2D" type="Sprite2D" parent="Start" unique_id=773895214]
+position = Vector2(94, 26)
+scale = Vector2(3, 3)
+texture = ExtResource("2_353f8")
+vframes = 2
 
 [node name="Quit" type="Button" parent="." unique_id=1658651991]
 layout_mode = 1
@@ -45,17 +55,20 @@ offset_bottom = 90.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxFlat_6pedr")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5cock")
 text = "Quit"
 
-[node name="Title" type="Label" parent="." unique_id=194057138]
-layout_mode = 0
-offset_left = 210.0
-offset_top = 35.0
-offset_right = 427.0
-offset_bottom = 87.0
-text = "Title!"
-horizontal_alignment = 1
+[node name="Sprite2D" type="Sprite2D" parent="Quit" unique_id=1367268530]
+position = Vector2(94, 26)
+scale = Vector2(3, 3)
+texture = ExtResource("2_353f8")
+vframes = 2
+frame = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=922558351]
+position = Vector2(635.5, 176)
+scale = Vector2(0.99921876, 1)
+texture = SubResource("CompressedTexture2D_tij55")
 
 [connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
