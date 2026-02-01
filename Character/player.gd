@@ -156,16 +156,29 @@ func change_health(change):
 		healthUI.show_health(curHealth)
 		
 func swapRole():
-	stunPlayer()
 	match(currentRole):
 		Role.Hunter:
 			dashEnabled = true
 			currentRole = Role.Prey
 		Role.Prey:
+			stunPlayer()
 			trapAvailable = true
 			trapsLeft = 2
 			EventBus.switchTraps.emit(deviceID)
 			currentRole = Role.Hunter
+			
+func playerHit():
+	match(currentRole):
+		Role.Prey:
+			change_health(-1)
+			stunPlayer()
+			trapAvailable = true
+			trapsLeft = 2
+			EventBus.switchTraps.emit(deviceID)
+			currentRole = Role.Hunter
+		Role.Hunter:
+			dashEnabled = true
+			currentRole = Role.Prey
 
 func stunPlayer():
 	currentState = State.Stunned
@@ -239,16 +252,3 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 
 func checkStunBeforeHit(body: Player):
 	return body.currentRole == State.Stunned || currentState == State.Stunned
-	
-func playerHit():
-	match(currentRole):
-		Role.Prey:
-			change_health(-1)
-			stunPlayer()
-			trapAvailable = true
-			trapsLeft = 2
-			EventBus.switchTraps.emit(deviceID)
-			currentRole = Role.Hunter
-		Role.Hunter:
-			dashEnabled = true
-			currentRole = Role.Prey
