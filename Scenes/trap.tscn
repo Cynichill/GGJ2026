@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://nvuxrbvhvxq2" path="res://trap.gd" id="1_xmcxk"]
 [ext_resource type="Texture2D" uid="uid://1xawwchefytd" path="res://Art/TRAP - Layer 2 (2) - 1.png" id="2_8uao8"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xmcxk"]
+resource_local_to_scene = true
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_utgws"]
 size = Vector2(20, 20.5)
 
@@ -11,12 +14,14 @@ scale = Vector2(2, 2)
 script = ExtResource("1_xmcxk")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1319198439]
+material = SubResource("ShaderMaterial_xmcxk")
 texture = ExtResource("2_8uao8")
 offset = Vector2(0, -0.5)
 hframes = 2
 vframes = 2
 
 [node name="Area2D" type="Area2D" parent="." unique_id=902216535]
+visible = false
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=854347574]

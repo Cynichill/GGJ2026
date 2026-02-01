@@ -164,6 +164,7 @@ func swapRole():
 		Role.Prey:
 			trapAvailable = true
 			trapsLeft = 2
+			EventBus.switchTraps.emit(deviceID)
 			currentRole = Role.Hunter
 
 func stunPlayer():
@@ -246,6 +247,7 @@ func playerHit():
 			stunPlayer()
 			trapAvailable = true
 			trapsLeft = 2
+			EventBus.switchTraps.emit(deviceID)
 			currentRole = Role.Hunter
 		Role.Hunter:
 			dashEnabled = true
